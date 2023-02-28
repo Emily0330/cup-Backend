@@ -38,7 +38,7 @@ app.post('/api', async (req, res) => { //app.post("/mint", requireAuth, async (r
 		const contract = new web3.eth.Contract(ABI, TOKEN_CONTRACT_ADDRESS); // create a contract instance using your token contract ABI and address
 		const result = await contract.methods
 			.mint(to, amount)
-			.send({ from: "0xbe804512d5128516cD95b0c6610a7881cfDdD062" }); // use the contract method to mint the token //mint tokens from this account
+			.send({ from: "MINT_FROM_THIS_ADDRESS" }); // use the contract method to mint the token //mint tokens from this account
 		res.status(200).send(
 			`Token minted with transaction hash: ${result.transactionHash}`
       //`Token minted with transaction hash: success!!`//for testing
