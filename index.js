@@ -28,17 +28,22 @@ app.get('/api',(req,res)=>{
 app.use(bodyParser.json());
 // endpoint for minting a token (requires authentication)
 //app.use(express.urlencoded({ extended: true }))//是在設定接受的請求格式(?)用express.urlencoded()中介軟體來解析URL編碼的請求body
+//已確認節點有在監聽JSON-RPC API請求
+
 app.post('/api', async (req, res) => { //app.post("/mint", requireAuth, async (req, res) => {
 	try {
     console.log("success!"); // 輸出 { name: 'John', age: 30 }
     res.send('已接收到資料')
     //大組長傳的那段
+		// this is one of the ways to sign a transaction on your end
+		web3.eth.accounts.wallet.add("PrivateKey_of_fromAddress");
+		//above are for testing
 		const { to, amount } = req.body; // get the "to" address and "amount" from the request body
-    console.log(req.body.to);//testing
+    	console.log(req.body.to);//testing
 		const contract = new web3.eth.Contract(ABI, TOKEN_CONTRACT_ADDRESS); // create a contract instance using your token contract ABI and address
 		const result = await contract.methods
 			.mint(to, amount)
-			.send({ from: "MINT_FROM_THIS_ADDRESS" }); // use the contract method to mint the token //mint tokens from this account
+			.send({ from: "fromAddress" }); // use the contract method to mint the token //mint tokens from this account
 		res.status(200).send(
 			`Token minted with transaction hash: ${result.transactionHash}`
       //`Token minted with transaction hash: success!!`//for testing
