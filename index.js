@@ -6,8 +6,10 @@ const fs = require('fs');//讀檔案用(?)
 const path = require('path');
 const bodyParser = require("body-parser");//parse the body as json-formatted
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 dotenv.config();
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -44,19 +46,14 @@ app.post('/api', async (req, res) => { //app.post("/mint", requireAuth, async (r
 			.send({ from: "fromAddress" , gas: 1000000}); // use the contract method to mint the token //mint tokens from this account
 		res.status(200).send(
 			`Token minted with transaction hash: ${result.transactionHash}`
-      			//`Token minted with transaction hash: success!!`//for testing
+      		//`Token minted with transaction hash: success!!`//for testing
 		);
+		console.log(`Token minted with transaction hash: ${result.transactionHash}`);
 	} catch (err) {
 		console.error(err);
 		res.status(500).send("Error while minting token");
 	}
 });
-/*app.use(express.json());
-app.post('/', (req, res) => {
-    res.send('success!-1');
-    console.log(req.body); // 輸出 { name: 'John', age: 30 }
-    res.send('已接收到資料');
-  });*/
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
