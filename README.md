@@ -16,7 +16,7 @@ run`npm install dotenv --save`
 **5. install web3**
 run`npm install web3` in the terminal
 
-**6. install web3**
+**6. install body-parser**
 run`npm install body-parser` in the terminal
 
 **7. change the wallet address and private key into yours**
